@@ -4,13 +4,15 @@ class Rates {
 
     stateChange = new Event('ratesUpdated');
 
-    async setRates() {
-        console.log('called')
+    async fetchRates() {
         const fetchedRates = await RatesService.fetchRates();
-        console.log(fetchedRates)
+        return fetchedRates;
+    }
+
+    updateRates(payload) {
         this.state = {
             ...this.state,
-            ...fetchedRates
+            ...payload
         }
         this.dispatchStateChange();
     }

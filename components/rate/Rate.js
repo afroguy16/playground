@@ -9,7 +9,6 @@ class Rate extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('Rate loaded');
         this.setTemplate();
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(this.rateElement.content.cloneNode(true));
