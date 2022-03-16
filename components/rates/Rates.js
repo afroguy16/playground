@@ -1,4 +1,5 @@
 import RatesStore from "../../store/Rates.js";
+import Rate from "../rate/Rate.js";
 
 class Rates extends HTMLElement {
     ratesTemplate = document.createElement('template');
@@ -20,7 +21,8 @@ class Rates extends HTMLElement {
     setTemplate() {
         this.ratesTemplate.innerHTML = `
             <div class="rates-wrapper">
-                <p>Hello Rates</p>
+                <h2>Hello Rates</h2>
+                <app-rate name="Bitcoin" unit="BTC" value="1.0" type="crypto"></app-rate>
             </div>
         `
     }
