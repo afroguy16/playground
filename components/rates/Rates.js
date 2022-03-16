@@ -24,12 +24,17 @@ class Rates extends HTMLElement {
         const rateTemplates = this.rates
             ? Object.entries(this.rates).map(([, value]) => {
                 return (`<app-rate name=${value.name} unit=${value.unit} value=${value.value} type=${value.name}></app-rate>`)
-            })
+            }).join('')
             : '';
+
         this.ratesTemplate.innerHTML = `
             <div class="rates-wrapper">
-                <h2>Hello Rates</h2>
-                ${rateTemplates}
+                <header class="title">
+                    <h1>Rates</h1>
+                </header>
+                <div class="rates">
+                    ${rateTemplates}
+                </div>
             </div>
         `
     }

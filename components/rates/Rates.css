@@ -1,3 +1,20 @@
-h2 {
+h1 {
+    margin: 0;
     text-align: center;
+}
+
+.rates-wrapper {
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.title {
+    margin-top: 98px;
+    margin-bottom: 64px;
+}
+
+.rates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(263px, 263px));;
+    grid-gap: 20px;
 }
