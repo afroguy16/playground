@@ -1,5 +1,6 @@
 import RatesStore from "../../store/Rates.js";
 import Rate from "../rate/Rate.js";
+import RateStyle from "./Rates.css" assert {type: 'css'};
 
 class Rates extends HTMLElement {
     ratesTemplate = document.createElement('template');
@@ -10,19 +11,25 @@ class Rates extends HTMLElement {
     }
 
     connectedCallback() {
+        this.setRates();
         this.setTemplate();
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(this.ratesTemplate.content.cloneNode(true));
+        this.shadowRoot.adoptedStyleSheets = [RateStyle];
 
-        this.setRates();
         this.addEventListener('stateChanged', this.onUpdateRates());
     }
 
     setTemplate() {
+        const rateTemplates = this.rates
+            ? Object.entries(this.rates).map(([, value]) => {
+                return (`<app-rate name=${value.name} unit=${value.unit} value=${value.value} type=${value.name}></app-rate>`)
+            })
+            : '';
         this.ratesTemplate.innerHTML = `
             <div class="rates-wrapper">
                 <h2>Hello Rates</h2>
-                <app-rate name="Bitcoin" unit="BTC" value="1.0" type="crypto"></app-rate>
+                ${rateTemplates}
             </div>
         `
     }
@@ -32,7 +39,6 @@ class Rates extends HTMLElement {
             ...this.rates,
             ...RatesStore.state
         }
-        this.onUpdateGlobalRates();
     }
 
     onUpdateGlobalRates() {

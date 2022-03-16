@@ -1,0 +1,15 @@
+h3, p {
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+.rate-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 263px;
+    height: 263px;
+    background-color: #F1F1F1;
+    border-radius: 8px;
+}

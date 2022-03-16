@@ -1,6 +1,17 @@
 class Rates {
     state = {
-        ngn: 254
+        "btc": {
+            "name": "Bitcoin",
+            "unit": "BTC",
+            "value": 1.0,
+            "type": "crypto"
+        },
+        "eth": {
+            "name": "Ether",
+            "unit": "ETH",
+            "value": 14.957,
+            "type": "crypto"
+        },
     }
 
     stateChange = new Event('stateChange');
