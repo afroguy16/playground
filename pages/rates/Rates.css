@@ -1,0 +1,23 @@
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.title {
+    margin-top: 98px;
+    margin-bottom: 64px;
+}
+
+.rates-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rates {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(263px, 263px)); /* 263px is the width of the card, so this is ensuring that the rates, which is the parent the card seats on has the same width with the card */
+    grid-gap: 20px;
+}

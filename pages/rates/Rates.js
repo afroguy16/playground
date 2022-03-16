@@ -1,29 +1,29 @@
 import RatesStore from "../../store/Rates.js";
-import Rate from "../rate/Rate.js";
+import Rate from "../../components/rate/Rate.js";
 import RateStyle from "./Rates.css" assert {type: 'css'};
 
 class Rates extends HTMLElement {
     ratesTemplate = document.createElement('template');
-    rates;
+    rates = {};
 
     constructor() {
         super();
     }
 
-    connectedCallback() {
-        this.setRates();
+    async connectedCallback() {
+        await this.setRates();
         this.setTemplate();
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(this.ratesTemplate.content.cloneNode(true));
         this.shadowRoot.adoptedStyleSheets = [RateStyle];
 
-        this.addEventListener('stateChanged', this.onUpdateRates());
+        this.addEventListener('ratesUpdated', this.setRates());
     }
 
     setTemplate() {
         const rateTemplates = this.rates
             ? Object.entries(this.rates).map(([, value]) => {
-                return (`<app-rate name=${value.name} unit=${value.unit} value=${value.value} type=${value.name}></app-rate>`)
+                return (`<app-rate name=${value.name} unit=${value.unit} value=${value.value} type=${value.type}></app-rate>`)
             }).join('')
             : '';
 
@@ -32,25 +32,18 @@ class Rates extends HTMLElement {
                 <header class="title">
                     <h1>Rates</h1>
                 </header>
-                <div class="rates">
-                    ${rateTemplates}
+                <div class="rates-container">
+                    <div class="rates">
+                        ${rateTemplates}
+                    </div>
                 </div>
             </div>
         `
     }
 
-    setRates() {
-        this.rates = {
-            ...this.rates,
-            ...RatesStore.state
-        }
-    }
-
-    onUpdateGlobalRates() {
-        RatesStore.updateRates('ngn', 200);
-    }
-
-    onUpdateRates() {
+    async setRates() {
+        await RatesStore.setRates();
+        console.log(RatesStore.state)
         this.rates = {
             ...this.rates,
             ...RatesStore.state

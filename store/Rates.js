@@ -1,25 +1,16 @@
+import RatesService from "../services/Rates.js";
 class Rates {
-    state = {
-        "btc": {
-            "name": "Bitcoin",
-            "unit": "BTC",
-            "value": 1.0,
-            "type": "crypto"
-        },
-        "eth": {
-            "name": "Ether",
-            "unit": "ETH",
-            "value": 14.957,
-            "type": "crypto"
-        },
-    }
+    state = {}
 
-    stateChange = new Event('stateChange');
+    stateChange = new Event('ratesUpdated');
 
-    updateRates(key, value) {
+    async setRates() {
+        console.log('called')
+        const fetchedRates = await RatesService.fetchRates();
+        console.log(fetchedRates)
         this.state = {
             ...this.state,
-            [key]: value
+            ...fetchedRates
         }
         this.dispatchStateChange();
     }

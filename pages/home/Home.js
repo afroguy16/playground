@@ -1,6 +1,6 @@
 import Counter from "../../components/counter/Counter.js";
 import Button from "../../components/button/Button.js";
-import Rates from "../../components/rates/Rates.js";
+import Rates from "../rates/Rates.js";
 
 class Home extends HTMLElement {
     homeTemplate = document.createElement('template');
