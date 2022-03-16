@@ -19,10 +19,10 @@ class Rate extends HTMLElement {
     setTemplate() {
         this.rateElement.innerHTML = `
             <div class="rate-wrapper">
-                <h3>Bitcoin</h3>
-                <p>BTC</p>
-                <p>1</p>
-                <p>Crypto</p>
+                <h3>${this.name}</h3>
+                <p>${this.unit}</p>
+                <p>${this.value}</p>
+                <p>${this.type}</p>
             </div>
         `;
     }
