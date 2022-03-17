@@ -10,7 +10,7 @@ class Todos extends HTMLElement {
         todos: [
             {id: 'td1', title: 'Play some music', done: false},
             {id: 'td2', title: 'Read a book', done: false},
-            {id: 'td2', title: 'Code some javascript', done: false}
+            {id: 'td3', title: 'Code some javascript', done: false}
         ]
     }
 
@@ -22,6 +22,9 @@ class Todos extends HTMLElement {
         this.setTemplate();
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(this.todosElement.content.cloneNode(true));
+
+        this.listTodos();
+        this.addTodos({title: 'Play game', done: false});
     }
 
     setTemplate() {
@@ -32,9 +35,22 @@ class Todos extends HTMLElement {
         `
     }
 
-    listTodos() {}
+    listTodos() {
+        console.log(this.state.todos);
+    }
     
-    addTodos(todo) {}
+    addTodos(todo) {
+        const invalidPayload = !!todo.hasOwnProperty('id');
+        if(invalidPayload) {
+            throw new Error("Invalid payload");
+        }
+        const updatedPayload = {
+            id: `td${this.state.todos.length+1}`,
+            ...todo
+        }
+        this.state.todos.push(updatedPayload);
+        return;
+    }
 
     deleteTodos(id) {}
 
