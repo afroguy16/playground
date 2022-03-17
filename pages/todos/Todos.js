@@ -1,10 +1,4 @@
 class Todos extends HTMLElement {
-    // List books
-    // Add book
-    // Update todos
-    // Delete book
-    // Search book
-
     todosElement = document.createElement('template');
     state = {
         todos: [
