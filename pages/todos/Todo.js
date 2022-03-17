@@ -1,1 +1,0 @@
-class Todo extends HTMLElement {}
