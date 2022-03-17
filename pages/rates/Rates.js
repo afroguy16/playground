@@ -2,6 +2,8 @@ import RatesStore from "../../store/Rates.js";
 import Rate from "../../components/rate/Rate.js";
 import RateStyle from "./Rates.css" assert {type: 'css'};
 
+const ERROR_TEMPLATE = '<p class="message-error">Something went wrong</p>' //Hard coded error message, not good for production application
+
 class Rates extends HTMLElement {
     ratesTemplate = document.createElement('template');
     state = {
@@ -15,12 +17,12 @@ class Rates extends HTMLElement {
     }
 
     async connectedCallback() {
+        document.addEventListener('ratesUpdated', this.updateLocalRates.bind(this));
         await this.updateGlobalRate();
         this.setTemplate();
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(this.ratesTemplate.content.cloneNode(true));
         this.shadowRoot.adoptedStyleSheets = [RateStyle];
-        document.addEventListener('ratesUpdated', this.updateLocalRates());
     }
 
     setTemplate() {
@@ -33,7 +35,7 @@ class Rates extends HTMLElement {
                     <div class="rates" id="rates">
                         ${
                             this.state.loading ? this.getLoadingCards()
-                            : this.state.error ? '<p class="message-error">Something went wrong</p>'
+                            : this.state.error ? ERROR_TEMPLATE
                             : this.getRateTemplate(this.state.rates)
                         }
                     </div>
@@ -65,7 +67,13 @@ class Rates extends HTMLElement {
     }
 
     async updateGlobalRate() {
-        RatesStore.updateRates(await RatesStore.fetchRates());
+        try {
+            RatesStore.updateRates(await RatesStore.fetchRates());
+        } catch (err) {
+            this.state.error = true;
+            console.log({err}, this.state.error)
+            this.updateLocalRates();
+        }
     }
 
     updateLocalRates() {
@@ -75,11 +83,7 @@ class Rates extends HTMLElement {
         }
         if (this.state.error || this.state.rates) this.state.loading = false;
         if (this.state.error) {
-            return(
-                `
-                    <p>Something went wrong</p>
-                `
-            )
+            return ERROR_TEMPLATE;
         } else {
             if(this.shadowRoot) this.shadowRoot.getElementById('rates').innerHTML = this.getRateTemplate(this.state.rates);
         }

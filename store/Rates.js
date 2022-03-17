@@ -4,9 +4,17 @@ class Rates {
 
     stateChange = new Event('ratesUpdated');
 
+    _dispatchStateChange() {
+        document.dispatchEvent(this.stateChange);
+    }
+
     async fetchRates() {
-        const fetchedRates = await RatesService.fetchRates();
-        return fetchedRates;
+        try {
+            const fetchedRates = await RatesService.fetchRates();
+            return fetchedRates;
+        } catch (err) {
+            throw err;
+        }
     }
 
     updateRates(payload) {
@@ -14,11 +22,7 @@ class Rates {
             ...this.state,
             ...payload
         }
-        this.dispatchStateChange();
-    }
-
-    dispatchStateChange() {
-        document.dispatchEvent(this.stateChange);
+        this._dispatchStateChange();
     }
 }
 
