@@ -22,14 +22,10 @@ class Home extends HTMLElement {
 
     setTemplate() {
         this.homeTemplate.innerHTML = `
-            <!-- <div class="home-wrapper">
+            <div class="home-wrapper">
                 <p>Hello Home</p>
                 <app-counter count="${this.count}"></app-counter>
                 <app-button text="click me"></app-button>
-            </div> -->
-
-            <div class="home-wrapper">
-                <app-rates></app-rates>
             </div>
         `
     }
