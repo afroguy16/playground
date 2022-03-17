@@ -14,7 +14,6 @@ class Home extends HTMLElement {
         this.setTemplate();
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(this.homeTemplate.content.cloneNode(true));
-        this.setHandlers();
     }
 
     setTemplate() {
