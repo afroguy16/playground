@@ -21,7 +21,7 @@ class Rate extends HTMLElement {
                 <h3>${this.name}</h3>
                 <p>${this.unit}</p>
                 <p>${this.value}</p>
-                <p>${this.type}</p>
+                <p class="label">${this.type}</p>
             </div>
         `;
     }
