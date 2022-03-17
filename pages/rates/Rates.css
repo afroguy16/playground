@@ -15,9 +15,29 @@ h1 {
     justify-content: center;
 }
 
+.loading-card {
+    width: 263px;
+    height: 263px;
+    background: #eee;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    border-radius: 5px;
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
 .rates {
     max-width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(263px, 263px)); /* 263px is the width of the card, so this is ensuring that the rates, which is the parent the card seats on has the same width with the card */
     grid-gap: 20px;
 }
+
+[class^="message"] {
+    text-align: center;
+}
+
+@keyframes shine {
+    to {
+      background-position-x: -200%;
+    }
+  }
