@@ -1,0 +1,24 @@
+h3, p {
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+.rate-wrapper {
+    font-family: 'Poppins', sans-serif;
+    color: #3E3E3E;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 263px;
+    height: 263px;
+    background-color: #F1F1F1;
+    border-radius: 8px;
+}
+
+.label {
+    font-size: 12px;
+    background-color: #DEDEDE;
+    padding: 5px 20px;
+    border-radius: 20px;
+}

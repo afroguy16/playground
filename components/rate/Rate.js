@@ -1,4 +1,6 @@
 
+import RateStyle from './Rate.css' assert {type: 'css'};
+
 class Rate extends HTMLElement {
     rateElement = document.createElement('template');
 
@@ -7,19 +9,19 @@ class Rate extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log('Rate loaded');
         this.setTemplate();
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(this.rateElement.content.cloneNode(true));
+        this.shadowRoot.adoptedStyleSheets = [RateStyle];
     }
 
     setTemplate() {
         this.rateElement.innerHTML = `
             <div class="rate-wrapper">
-                </p>${this.name}</p>
-                </p>${this.unit}</p>
-                </p>${this.value}</p>
-                </p>${this.type}</p>
+                <h3>${this.name}</h3>
+                <p>${this.unit}</p>
+                <p>${this.value}</p>
+                <p class="label">${this.type}</p>
             </div>
         `;
     }

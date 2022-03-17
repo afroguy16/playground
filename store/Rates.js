@@ -1,20 +1,28 @@
+import RatesService from "../services/Rates.js";
 class Rates {
-    state = {
-        ngn: 254
+    state = {}
+
+    stateChange = new Event('ratesUpdated');
+
+    _dispatchStateChange() {
+        document.dispatchEvent(this.stateChange);
     }
 
-    stateChange = new Event('stateChange');
+    async fetchRates() {
+        try {
+            const fetchedRates = await RatesService.fetchRates();
+            return fetchedRates;
+        } catch (err) {
+            throw err;
+        }
+    }
 
-    updateRates(key, value) {
+    updateRates(payload) {
         this.state = {
             ...this.state,
-            [key]: value
+            ...payload
         }
-        this.dispatchStateChange();
-    }
-
-    dispatchStateChange() {
-        document.dispatchEvent(this.stateChange);
+        this._dispatchStateChange();
     }
 }
 
