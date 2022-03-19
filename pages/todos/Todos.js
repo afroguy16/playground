@@ -21,7 +21,7 @@ class Todos extends HTMLElement {
         this.addTodos({ title: 'Play game', done: false });
         this.deleteTodos('td22');
         this.updateTodos('td2', 's');
-        this.searchTodos('Read a book');
+        this.searchTodos('so');
     }
 
     setTemplate() {
@@ -73,10 +73,11 @@ class Todos extends HTMLElement {
         return false;
     }
 
-    searchTodos(query) {
-        const queried = this.state.todos.filter(todo => todo.id === query || todo.title === query);
-        console.log(queried);
-        return queried;
+    containsQuery(query, toCompare) {
+        const splitQuery = query.split('');
+        const splitToCompare = toCompare.split('');
+
+        return !splitQuery.find((char, i) => char !== splitToCompare[i]);
     }
 
 }
