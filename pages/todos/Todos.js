@@ -16,12 +16,6 @@ class Todos extends HTMLElement {
         this.setTemplate();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(this.todosElement.content.cloneNode(true));
-
-        this.listTodos();
-        this.addTodos({ title: 'Play game', done: false });
-        this.deleteTodos('td22');
-        this.updateTodos('td2', 's');
-        this.searchTodos('th');
     }
 
     setTemplate() {
@@ -118,9 +112,7 @@ class Todos extends HTMLElement {
     }
 
     searchTodos(query) {
-        // const queried = this.state.todos.filter(todo => todo.id.toLowerCase() === query.toLowerCase() || todo.title.toLowerCase() === query.toLowerCase());
-        // console.log(queried);
-        // return queried;
+        return this.state.todos.filter(todo => this.containsQuery(query, todo.id) || this.containsQuery(query, todo.title));
     }
 
 }
