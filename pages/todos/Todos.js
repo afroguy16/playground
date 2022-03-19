@@ -26,14 +26,14 @@ class Todos extends HTMLElement {
 
     setTemplate() {
         this.todosElement.innerHTML = `
-            <header>i
+            <header>
                 <h1>To do List</h1>
             </header>
         `
     }
 
     listTodos() {
-        console.log(this.state.todos);
+        return this.state.todos;
     }
 
     addTodos(todo) {
@@ -53,10 +53,8 @@ class Todos extends HTMLElement {
         const todoAvailable = this.state.todos.find(todo => todo.id === id); //An extra loop used for the purpose of sending feedback to the user, cost is linear so not so expensive :-)
         if (todoAvailable) {
             this.state.todos = this.state.todos.filter(todo => todo.id !== id);
-            this.listTodos();
             return true;
         }
-        console.log('bad request');
         return false;
     }
 
@@ -74,7 +72,7 @@ class Todos extends HTMLElement {
     }
 
     containsQuery(query, toCompare) {
-        if(query.length > 20 || toCompare.length > 20) { //if words are too large, algo would take a hit. Even though it's linear, it would need to be optimize with some advance search algorigthm to support larger words. Which is not necessary for this usecase
+        if(query.length > toCompare.length || query.length > 20 || toCompare.length > 20) { //if words are too large, algo would take a hit. Even though it's linear, it would need to be optimize with some advance search algorigthm to support larger words. Which is not necessary for this usecase
             return false;
         }
 
@@ -117,6 +115,12 @@ class Todos extends HTMLElement {
             return true;
         }
         return false;
+    }
+
+    searchTodos(query) {
+        // const queried = this.state.todos.filter(todo => todo.id.toLowerCase() === query.toLowerCase() || todo.title.toLowerCase() === query.toLowerCase());
+        // console.log(queried);
+        // return queried;
     }
 
 }
