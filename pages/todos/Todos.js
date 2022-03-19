@@ -16,6 +16,7 @@ class Todos extends HTMLElement {
         this.setTemplate();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(this.todosElement.content.cloneNode(true));
+        this.updateTodos('td2', {title: 'Sleep well', done: false})
     }
 
     setTemplate() {
@@ -56,13 +57,15 @@ class Todos extends HTMLElement {
         if(!id || !todo) {
             return false;
         }
-        const selectedTodoIndex = this.state.todos.findIndex((td) => td.todo === id);
-        if(!!selectedTodoIndex) {
-            this.state.todos[selectedTodoIndex] = todo;
-            this.listTodos();
-            return true;
+        const selectedTodoIndex = this.state.todos.findIndex((td) => td.id === id);
+        if(selectedTodoIndex < 0) {
+            return false;
         }
-        return false;
+        this.state.todos[selectedTodoIndex] = {
+            ...this.state.todos[selectedTodoIndex],
+            ...todo
+        };
+        return true;
     }
 
     containsQuery(query, toCompare) {
