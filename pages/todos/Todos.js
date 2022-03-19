@@ -21,12 +21,13 @@ class Todos extends HTMLElement {
         this.addTodos({ title: 'Play game', done: false });
         this.deleteTodos('td22');
         this.updateTodos('td2', 's');
-        this.searchTodos('so');
+
+        this.searchTodos('ma');
     }
 
     setTemplate() {
         this.todosElement.innerHTML = `
-            <header>
+            <header>i
                 <h1>To do List</h1>
             </header>
         `
@@ -72,14 +73,26 @@ class Todos extends HTMLElement {
         }
         return false;
     }
+    
+    // find splitToCompare array to see if it contains the first word from splitQuery
+    // Take note of the index array that matches
+    // Loop through the remaining splitQuery starting from the index+1 of splitToCompare
 
     containsQuery(query, toCompare) {
         const splitQuery = query.split('');
-        const splitToCompare = toCompare.split('');
+        let splitToCompare = toCompare.split('');
+
+        const startingIndex = splitToCompare.findIndex(char => char === splitQuery[0]);
+        
+        if(startingIndex < 0) {
+            return false;
+        }
+
+        splitQuery.splice(0, 1);
+        splitToCompare = splitToCompare.slice(startingIndex+1);
 
         return !splitQuery.find((char, i) => char !== splitToCompare[i]);
     }
-
 }
 
 window.customElements.define('app-todos', Todos);
