@@ -21,8 +21,7 @@ class Todos extends HTMLElement {
         this.addTodos({ title: 'Play game', done: false });
         this.deleteTodos('td22');
         this.updateTodos('td2', 's');
-
-        this.searchTodos('ma');
+        this.searchTodos('th');
     }
 
     setTemplate() {
@@ -73,26 +72,53 @@ class Todos extends HTMLElement {
         }
         return false;
     }
-    
-    // find splitToCompare array to see if it contains the first word from splitQuery
-    // Take note of the index array that matches
-    // Loop through the remaining splitQuery starting from the index+1 of splitToCompare
 
     containsQuery(query, toCompare) {
-        const splitQuery = query.split('');
+        if(query.length > 20 || toCompare.length > 20) { //if words are too large, algo would take a hit. Even though it's linear, it would need to be optimize with some advance search algorigthm to support larger words. Which is not necessary for this usecase
+            return false;
+        }
+
+        query = query.toLowerCase();
+        toCompare = toCompare.toLowerCase();
+
+        let matchCount = 0;
+        let splitQuery = query.split('');
         let splitToCompare = toCompare.split('');
 
-        const startingIndex = splitToCompare.findIndex(char => char === splitQuery[0]);
+        let matchedIndexes = splitToCompare.map((char, index) => {
+            if(char === splitQuery[0]) {
+                matchCount+=1;
+                return index;
+            }
+        });
+
+        const startingIndex = matchedIndexes.find(index => index !== undefined);
+        matchedIndexes = matchedIndexes.filter(index => index !== undefined);
         
         if(startingIndex < 0) {
             return false;
         }
 
-        splitQuery.splice(0, 1);
-        splitToCompare = splitToCompare.slice(startingIndex+1);
+        let globalTest = false;
+        let i = 0;
 
-        return !splitQuery.find((char, i) => char !== splitToCompare[i]);
+        for(; matchCount > 0; matchCount--) {
+            let tempSplitQuery = splitQuery.slice(1);
+            let tempSplitToCompare = splitToCompare.slice(matchedIndexes[i]+1);
+
+            const test = !tempSplitQuery.find((char, i) => char !== tempSplitToCompare[i]); // still linear even though, there is a nested loop, but the search doesn't start from the beginning, it starts from the previous stop
+            if (test) {
+                globalTest = true;
+            }
+
+            i++;
+        }
+        if(globalTest) {
+            return true;
+        }
+        return false;
     }
+
 }
 
 window.customElements.define('app-todos', Todos);
