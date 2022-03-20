@@ -1,7 +1,7 @@
 import Counter from "../../components/counter/Counter.js";
 import Button from "../../components/button/Button.js";
 
-class Home extends HTMLElement {
+class HomeOld extends HTMLElement {
     homeTemplate = document.createElement('template');
     count = 0;
     appButton;
@@ -42,6 +42,6 @@ class Home extends HTMLElement {
     }
 }
 
-window.customElements.define('app-home', Home);
+window.customElements.define('app-home-old', Home);
 
-export default Home;
+export default HomeOld;
