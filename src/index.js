@@ -1,1 +1,1 @@
-import HomeOld from './pages/home/Home-old';
+import Home from './pages/home/Home';

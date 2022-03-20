@@ -1,4 +1,4 @@
-import Todos from "../todos/Todos.js";
+import Todos from "../todos/Todos";
 class Home extends HTMLElement {
     homeTemplate = document.createElement('template');
     count = 0;

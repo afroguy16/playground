@@ -1,5 +1,5 @@
-import RatesStore from "../../store/Rates.js";
-import Rate from "../../components/rate/Rate.js";
+import RatesStore from "../../store/Rates";
+import Rate from "../../components/rate/Rate";
 import RateStyle from "./Rates.css" assert {type: 'css'};
 
 const ERROR_TEMPLATE = '<p class="message-error">Something went wrong</p>' //Hard coded error message, not good for production application

@@ -1,5 +1,5 @@
-import Counter from "../../components/counter/Counter.js";
-import Button from "../../components/button/Button.js";
+import Counter from "../../components/counter/Counter";
+import Button from "../../components/button/Button";
 
 class HomeOld extends HTMLElement {
     homeTemplate = document.createElement('template');
