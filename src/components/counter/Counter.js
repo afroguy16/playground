@@ -1,22 +1,21 @@
 class Counter extends HTMLElement {
-    counterTemplate = document.createElement('template');
-
     constructor() {
         super();
     }
 
     connectedCallback() {
         this.setTemplate();
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(this.counterTemplate.content.cloneNode(true));
     }
 
     setTemplate() {
-        this.counterTemplate.innerHTML = `
+        const counterTemplate = document.createElement('template');
+        counterTemplate.innerHTML = `
             <div class="counter-wrapper" id="counter-wrapper">
                 <p id="counter">${this.count}</p>
             </div>
         `;
+        this.attachShadow({mode: 'open'});
+        this.shadowRoot.appendChild(counterTemplate.content.cloneNode(true));
     }
 
     static get observedAttributes() {

@@ -1,4 +1,4 @@
-import Rates from "../rates/Rates";
+import Todos from "../todos/Todos";
 class Home extends HTMLElement {
     count = 0;
     appButton;
@@ -16,7 +16,7 @@ class Home extends HTMLElement {
         const homeTemplate = document.createElement('template');
         homeTemplate.innerHTML = `
             <div class="home-wrapper">
-                <app-rates></app-rates>
+                <app-todos></app-todos>
             </div>
         `;
         this.attachShadow({mode: 'open'});
