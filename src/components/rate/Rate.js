@@ -1,5 +1,5 @@
 
-import RateStyle from './Rate.css' assert {type: 'css'};
+import RateStyle from './Rate.css';
 
 class Rate extends HTMLElement {
     rateElement = document.createElement('template');

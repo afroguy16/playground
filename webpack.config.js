@@ -8,6 +8,19 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.css$/,
+                use: ['style-loader', {loader: 'css-loader'}]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    'raw-loader',
+                  {
+                    loader: 'sass-loader',
+                  }
+                ]
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
@@ -21,5 +34,7 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'dist'),
           }
-    }
+    },
+
+    devtool: "source-map"
 }

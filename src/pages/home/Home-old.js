@@ -42,6 +42,6 @@ class HomeOld extends HTMLElement {
     }
 }
 
-window.customElements.define('app-home-old', Home);
+window.customElements.define('app-home-old', HomeOld);
 
 export default HomeOld;

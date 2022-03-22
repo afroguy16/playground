@@ -28,7 +28,7 @@ class Counter extends HTMLElement {
     }
 
     attributeChangedCallback() {
-        this.shadowRoot.getElementById('counter').innerHTML = this.count;
+        if(this.shadowRoot) this.shadowRoot.getElementById('counter').innerHTML = this.count;
     }
 }
 

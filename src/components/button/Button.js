@@ -1,18 +1,26 @@
-import ButtonStyle from './Button.css' assert {type: 'css'};
+import ButtonStyle from './Button.scss';
 
 class Button extends  HTMLElement {
-    buttonElement = document.createElement('template');
-
     constructor() {
         super();
+    }
+
+    connectedCallback() {
         this.setTemplate();
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(this.buttonElement.content.cloneNode(true));
-        this.shadowRoot.adoptedStyleSheets = [ButtonStyle];
+        this.setStyles();
+    }
+
+    setStyles() {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(ButtonStyle);
+        this.shadowRoot.adoptedStyleSheets = [sheet];
     }
 
     setTemplate() {
-        this.buttonElement.innerHTML = `<button class="button">${this.getAttribute('text')}</button>`
+        const buttonElement = document.createElement('template');
+        buttonElement.innerHTML = `<button class="button">${this.getAttribute('text')}</button>`
+        this.attachShadow({mode: 'open'});
+        this.shadowRoot.appendChild(buttonElement.content.cloneNode(true));
     }
 }
 
