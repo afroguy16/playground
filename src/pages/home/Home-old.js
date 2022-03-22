@@ -2,7 +2,6 @@ import Counter from "../../components/counter/Counter";
 import Button from "../../components/button/Button";
 
 class HomeOld extends HTMLElement {
-    homeTemplate = document.createElement('template');
     count = 0;
     appButton;
     appCounter;
@@ -13,21 +12,22 @@ class HomeOld extends HTMLElement {
 
     connectedCallback() {
         this.setTemplate();
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(this.homeTemplate.content.cloneNode(true));
         this.appButton = this.shadowRoot.querySelector('app-button');
         this.appCounter = this.shadowRoot.querySelector('app-counter');
         this.setHandlers();
     }
 
     setTemplate() {
-        this.homeTemplate.innerHTML = `
+        const homeTemplate = document.createElement('template');
+        homeTemplate.innerHTML = `
             <div class="home-wrapper">
                 <p>Hello Home</p>
                 <app-counter count="${this.count}"></app-counter>
                 <app-button text="click me"></app-button>
             </div>
         `
+        this.attachShadow({mode: 'open'});
+        this.shadowRoot.appendChild(homeTemplate.content.cloneNode(true));
     }
 
     setHandlers() {
