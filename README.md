@@ -16,4 +16,4 @@ The list of tools and concept used are inexhaustive, so I am only going to list 
 5. [Babel](https://babeljs.io/)
 6. [Raw-Loader](https://webpack.js.org/loaders/raw-loader/) - [this is depreciated](https://webpack.js.org/guides/asset-modules/)
 
-Check out `package.json` for a full list of dependencies used.
+Check out [package.json](https://github.com/afroguy16/playground/blob/setup-webpack/package.json) for a full list of dependencies used.
