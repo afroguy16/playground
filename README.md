@@ -14,6 +14,6 @@ The list of tools and concept used are inexhaustive, so I am only going to list 
 3. [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
 4. [Webpack](https://webpack.js.org/)
 5. [Babel](https://babeljs.io/)
-6. [Raw-Loader](https://webpack.js.org/loaders/raw-loader/) - [This is depreciated](https://webpack.js.org/guides/asset-modules/)
+6. [Raw-Loader](https://webpack.js.org/loaders/raw-loader/) - [this is depreciated](https://webpack.js.org/guides/asset-modules/)
 
 Check out `package.json` for a full list of dependencies used.
