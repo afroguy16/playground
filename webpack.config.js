@@ -13,12 +13,8 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [
-                    'raw-loader',
-                  {
-                    loader: 'sass-loader',
-                  }
-                ]
+                type: 'asset/source',
+                loader: 'sass-loader'
             },
             {
                 test: /\.js$/,
