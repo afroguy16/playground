@@ -1,0 +1,38 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "description": "A playground to test some browser APIs and Javascript concept",
+  "main": "index.html",
+  "scripts": {
+    "start": "webpack serve",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afroguy16/playground.git"
+  },
+  "author": "Jonathan Otokun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/afroguy16/playground/issues"
+  },
+  "homepage": "https://github.com/afroguy16/playground#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "autoprefixer": "^10.4.4",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.7.1",
+    "jest": "^27.5.1",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
+  }
+}

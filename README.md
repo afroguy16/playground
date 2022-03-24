@@ -1,14 +1,19 @@
 # Playground
-A playground to test some browser APIs and Javascript concept. This project is written in vanilla JS, no framework, library or package is required. However you would need to have a local server package installed on your machine in order to load JS modules, which is used in this application. I personally use [Lite Server](https://www.npmjs.com/package/lite-server), but you can use anyone of your choice.
+A playground to test some browser APIs and Javascript concepts. This project is written in vanilla JS and supported by some libraries. [Webpack](https://webpack.js.org/) is used to bundle the code and [Babel](https://babeljs.io/) is used to transpile to an older JavaScript version. All dependencies used are in `package.json`, so you need to `npm i` before you serve the application. Details on how to start the application is [below](https://github.com/afroguy16/playground#start-up).
 
 ### Start up
 To start up the application:
 1. Navigate to the root folder in your terminal
-2. Start up your local server, for lite-server, here is the command: `npx lite-server`
+2. Run `npm i` to install all dependencies
+2. Once that is done. Run `npm start` to start the application
 
 ### Selected Tools used
-The list of tools and concept used are inexhaustive, so I am going to only list the ones that are fairly new or that I find interesting.
-1. [CSS Script Module](https://web.dev/css-module-scripts/)
-2. [Web Component](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-3. [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
-4. [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
+The list of tools and concept used are inexhaustive, so I am only going to list the ones that are fairly new or that I find interesting.
+1. [Web Component](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+2. [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+3. [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
+4. [Webpack](https://webpack.js.org/)
+5. [Webpack Asset Modules](https://webpack.js.org/guides/asset-modules/)
+6. [Babel](https://babeljs.io/) 
+
+Check out [package.json](https://github.com/afroguy16/playground/blob/setup-webpack/package.json) for a full list of dependencies used.

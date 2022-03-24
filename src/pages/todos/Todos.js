@@ -1,5 +1,4 @@
 class Todos extends HTMLElement {
-    todosElement = document.createElement('template');
     state = {
         todos: [
             { id: 'td1', title: 'Play some music', done: false },
@@ -14,17 +13,17 @@ class Todos extends HTMLElement {
 
     connectedCallback() {
         this.setTemplate();
-        this.attachShadow({ mode: 'open' });
-        this.shadowRoot.appendChild(this.todosElement.content.cloneNode(true));
-        this.updateTodos('td2', {title: 'Sleep well', done: false})
     }
 
     setTemplate() {
-        this.todosElement.innerHTML = `
+        const todosElement = document.createElement('template');
+        todosElement.innerHTML = `
             <header>
                 <h1>To do List</h1>
             </header>
-        `
+        `;
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.appendChild(todosElement.content.cloneNode(true));
     }
 
     listTodos() {

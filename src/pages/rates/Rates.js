@@ -1,11 +1,10 @@
-import RatesStore from "../../store/Rates.js";
-import Rate from "../../components/rate/Rate.js";
-import RateStyle from "./Rates.css" assert {type: 'css'};
+import RatesStore from "../../store/Rates";
+import Rate from "../../components/rate/Rate";
+import RateStyle from "./Rates.scss";
 
 const ERROR_TEMPLATE = '<p class="message-error">Something went wrong</p>' //Hard coded error message, not good for production application
 
 class Rates extends HTMLElement {
-    ratesTemplate = document.createElement('template');
     state = {
         loading: true,
         error: false,
@@ -17,16 +16,19 @@ class Rates extends HTMLElement {
     }
 
     async connectedCallback() {
-        document.addEventListener('ratesUpdated', this.updateLocalRates.bind(this));
+        this.setListeners();
         await this.updateGlobalRate();
         this.setTemplate();
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(this.ratesTemplate.content.cloneNode(true));
-        this.shadowRoot.adoptedStyleSheets = [RateStyle];
+        this.setStyles();
+    }
+
+    setListeners() {
+        document.addEventListener('ratesUpdated', this.updateLocalRates.bind(this));
     }
 
     setTemplate() {
-        this.ratesTemplate.innerHTML = `
+        const ratesTemplate = document.createElement('template');
+        ratesTemplate.innerHTML = `
             <div class="rates-wrapper">
                 <header class="title">
                     <h1>Rates</h1>
@@ -41,7 +43,9 @@ class Rates extends HTMLElement {
                     </div>
                 </div>
             </div>
-        `
+        `;
+        this.attachShadow({mode: 'open'});
+        this.shadowRoot.appendChild(ratesTemplate.content.cloneNode(true));
     }
 
     getRateTemplate(rates) {
@@ -64,6 +68,12 @@ class Rates extends HTMLElement {
                 <div class="loading-card"></div>
             `
         )
+    }
+
+    setStyles() {
+        const sheet = new CSSStyleSheet();
+        sheet.replace(RateStyle);
+        this.shadowRoot.adoptedStyleSheets = [sheet];
     }
 
     async updateGlobalRate() {
