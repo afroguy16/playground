@@ -4,7 +4,7 @@
   "description": "A playground to test some browser APIs and Javascript concept",
   "main": "index.html",
   "scripts": {
-    "start": "webpack serve",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack"
   },

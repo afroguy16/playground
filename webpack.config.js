@@ -26,11 +26,15 @@ module.exports = {
                 }
             },
             {
-                test: /\.ts?$/,
+                test: /\.ts$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
         ]
+    },
+
+    resolve: {
+        extensions: ['.ts', '.js'],
     },
 
     devServer: {
