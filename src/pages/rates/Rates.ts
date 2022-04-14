@@ -1,32 +1,42 @@
 import RatesStore from "../../store/Rates";
 import Rate from "../../components/rate/Rate";
 import RateStyle from "./Rates.scss";
+import { CSSStyleSheetExtended, ShadowRootExtended } from "../../types/browser-apis";
+import { Rates as RatesType } from "../../types/rates";
 
 const ERROR_TEMPLATE = '<p class="message-error">Something went wrong</p>' //Hard coded error message, not good for production application
 
+type RatesState = {
+    loading: boolean;
+    error: boolean;
+    rates: RatesType
+}
+
 class Rates extends HTMLElement {
-    state = {
+    state: RatesState = {
         loading: true,
         error: false,
-        rates: { }
+        rates: null
     };
+
+    shadowRoot: ShadowRootExtended;
 
     constructor() {
         super();
     }
 
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
         this.setListeners();
         await this.updateGlobalRate();
         this.setTemplate();
         this.setStyles();
     }
 
-    setListeners() {
+    setListeners(): void {
         document.addEventListener('ratesUpdated', this.updateLocalRates.bind(this));
     }
 
-    setTemplate() {
+    setTemplate(): void {
         const ratesTemplate = document.createElement('template');
         ratesTemplate.innerHTML = `
             <div class="rates-wrapper">
@@ -48,7 +58,7 @@ class Rates extends HTMLElement {
         this.shadowRoot.appendChild(ratesTemplate.content.cloneNode(true));
     }
 
-    getRateTemplate(rates) {
+    getRateTemplate(rates: RatesType): string {
         return rates
         ? Object.entries(this.state.rates).map(([, value]) => {
             return (`<app-rate name=${value.name} unit=${value.unit} value=${value.value} type=${value.type}></app-rate>`)
@@ -56,7 +66,7 @@ class Rates extends HTMLElement {
         : '';
     }
 
-    getLoadingCards() {
+    getLoadingCards(): string {
         //Hardcoded, this can be moved to its own component, then the width an height can adapt to its parent. This is a good opportunity to use container query :-)
         return (
             `
@@ -70,13 +80,13 @@ class Rates extends HTMLElement {
         )
     }
 
-    setStyles() {
-        const sheet = new CSSStyleSheet();
+    setStyles(): void {
+        const sheet: CSSStyleSheetExtended = new CSSStyleSheet();
         sheet.replace(RateStyle);
         this.shadowRoot.adoptedStyleSheets = [sheet];
     }
 
-    async updateGlobalRate() {
+    async updateGlobalRate(): Promise<void> {
         try {
             RatesStore.updateRates(await RatesStore.fetchRates());
         } catch (err) {
@@ -86,7 +96,7 @@ class Rates extends HTMLElement {
         }
     }
 
-    updateLocalRates() {
+    updateLocalRates(): void | string { //not the best move to have two different return types
         this.state.rates = {
             ...this.state.rates,
             ...RatesStore.state
