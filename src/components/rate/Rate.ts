@@ -1,17 +1,20 @@
 
+import { CSSStyleSheetExtended, ShadowRootExtended } from '../../types/browser-apis';
 import RateStyle from './Rate.scss';
 
 class Rate extends HTMLElement {
+    shadowRoot: ShadowRootExtended;
+
     constructor() {
         super();
     }
 
-    connectedCallback() {
+    connectedCallback(): void {
         this.setTemplate();
         this.setStyles();
     }
 
-    setTemplate() {
+    setTemplate(): void {
         const rateElement = document.createElement('template');
         rateElement.innerHTML = `
             <div class="rate-wrapper">
@@ -25,25 +28,25 @@ class Rate extends HTMLElement {
         this.shadowRoot.appendChild(rateElement.content.cloneNode(true));
     }
 
-    setStyles() {
-        const sheet = new CSSStyleSheet();
+    setStyles(): void {
+        const sheet: CSSStyleSheetExtended = new CSSStyleSheet();
         sheet.replace(RateStyle);
         this.shadowRoot.adoptedStyleSheets = [sheet];
     }
 
-    get name() {
+    get name(): string {
         return this.getAttribute('name');
     }
 
-    get unit() {
+    get unit(): string {
         return this.getAttribute('unit');
     }
 
-    get value() {
+    get value(): string {
         return this.getAttribute('value');
     }
 
-    get type() {
+    get type(): string {
         return this.getAttribute('type');
     }
 }
