@@ -1,16 +1,10 @@
-import RatesStore from "../../store/Rates";
+import RatesStore, { RatesState } from "../../store/Rates";
 import Rate from "../../components/rate/Rate";
 import RateStyle from "./Rates.scss";
 import { CSSStyleSheetExtended, ShadowRootExtended } from "../../types/browser-apis";
 import { Rates as RatesType } from "../../types/rates";
 
 const ERROR_TEMPLATE = '<p class="message-error">Something went wrong</p>' //Hard coded error message, not good for production application
-
-type RatesState = {
-    loading: boolean;
-    error: boolean;
-    rates: RatesType
-}
 
 class Rates extends HTMLElement {
     state: RatesState = {
