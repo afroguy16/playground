@@ -3,21 +3,21 @@ import Button from "../../components/button/Button";
 
 class HomeOld extends HTMLElement {
     count = 0;
-    appButton;
-    appCounter;
+    appButton: HTMLElement;
+    appCounter: HTMLElement;
 
     constructor() {
         super();
     }
 
-    connectedCallback() {
+    connectedCallback(): void {
         this.setTemplate();
         this.appButton = this.shadowRoot.querySelector('app-button');
         this.appCounter = this.shadowRoot.querySelector('app-counter');
         this.setHandlers();
     }
 
-    setTemplate() {
+    setTemplate(): void {
         const homeTemplate = document.createElement('template');
         homeTemplate.innerHTML = `
             <div class="home-wrapper">
@@ -30,14 +30,14 @@ class HomeOld extends HTMLElement {
         this.shadowRoot.appendChild(homeTemplate.content.cloneNode(true));
     }
 
-    setHandlers() {
+    setHandlers(): void {
         this.handleIncrementCount();
     }
 
-    handleIncrementCount() {
+    handleIncrementCount(): void {
         this.appButton.addEventListener('click', () => {
             this.count+=1;
-            this.appCounter.setAttribute('count', this.count);
+            this.appCounter.setAttribute('count', this.count.toString());
         })
     }
 }
