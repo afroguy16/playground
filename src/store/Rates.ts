@@ -1,14 +1,10 @@
-import RatesService from "../services/Rates.js";
+import RatesService from "../services/Rates";
 import { Rates as RatesType } from "../types/rates";
 
-export interface RatesState {
-    loading: boolean;
-    error: boolean;
-    rates: RatesType
-}
-
 class Rates {
-    state = {}
+    state: RatesType = {
+        rates: {}
+    }
 
     stateChange = new Event('ratesUpdated');
 
@@ -16,7 +12,7 @@ class Rates {
         document.dispatchEvent(this.stateChange);
     }
 
-    async fetchRates(): Promise<RatesState> {
+    async fetchRates(): Promise<RatesType> {
         try {
             const fetchedRates = await RatesService.fetchRates();
             return fetchedRates;
@@ -25,7 +21,7 @@ class Rates {
         }
     }
 
-    updateRates(payload: RatesState): void {
+    updateRates(payload: RatesType): void {
         this.state = {
             ...this.state,
             ...payload
