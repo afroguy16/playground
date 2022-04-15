@@ -1,3 +1,9 @@
+type Todo = {
+    id: string;
+    title: string;
+    done: boolean;
+}
+
 class Todos extends HTMLElement {
     state = {
         todos: [
@@ -11,11 +17,11 @@ class Todos extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    connectedCallback(): void {
         this.setTemplate();
     }
 
-    setTemplate() {
+    setTemplate(): void {
         const todosElement = document.createElement('template');
         todosElement.innerHTML = `
             <header>
@@ -26,16 +32,16 @@ class Todos extends HTMLElement {
         this.shadowRoot.appendChild(todosElement.content.cloneNode(true));
     }
 
-    listTodos() {
+    listTodos(): Todo[] {
         return this.state.todos;
     }
 
-    addTodos(todo) {
+    addTodos(todo: Todo) {
         const invalidPayload = !!todo.hasOwnProperty('id');
         if (invalidPayload) {
             return false;
         }
-        const updatedPayload = {
+        const updatedPayload: Todo = {
             id: `td${this.state.todos.length + 1}`,
             ...todo
         }
@@ -43,7 +49,7 @@ class Todos extends HTMLElement {
         return true;
     }
 
-    deleteTodos(id) {
+    deleteTodos(id: string): boolean { //change id to Enum
         const todoAvailable = this.state.todos.find(todo => todo.id === id); //An extra loop used for the purpose of sending feedback to the user, cost is linear so not so expensive :-)
         if (todoAvailable) {
             this.state.todos = this.state.todos.filter(todo => todo.id !== id);
@@ -52,7 +58,7 @@ class Todos extends HTMLElement {
         return false;
     }
 
-    updateTodos(id, todo) {
+    updateTodos(id: string, todo: Todo): boolean { //change id to enum
         if(!id || !todo) {
             return false;
         }
@@ -67,7 +73,7 @@ class Todos extends HTMLElement {
         return true;
     }
 
-    containsQuery(query, toCompare) {
+    containsQuery(query: string, toCompare: string): boolean {
         if(query.length > toCompare.length || query.length > 20 || toCompare.length > 20) { //if words are too large, algo would take a hit. Even though it's linear, it would need to be optimize with some advance search algorigthm to support larger words. Which is not necessary for this usecase
             return false;
         }
@@ -113,7 +119,7 @@ class Todos extends HTMLElement {
         return false;
     }
 
-    searchTodos(query) {
+    searchTodos(query: string): Todo[] {
         return this.state.todos.filter(todo => this.containsQuery(query, todo.id) || this.containsQuery(query, todo.title));
     }
 

@@ -3,11 +3,11 @@ class Counter extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
+    connectedCallback(): void {
         this.setTemplate();
     }
 
-    setTemplate() {
+    setTemplate(): void {
         const counterTemplate = document.createElement('template');
         counterTemplate.innerHTML = `
             <div class="counter-wrapper" id="counter-wrapper">
@@ -18,15 +18,15 @@ class Counter extends HTMLElement {
         this.shadowRoot.appendChild(counterTemplate.content.cloneNode(true));
     }
 
-    static get observedAttributes() {
+    static get observedAttributes(): string[] {
         return ['count'];
     }
 
-    get count() {
+    get count(): string {
         return this.getAttribute('count');
     }
 
-    attributeChangedCallback() {
+    attributeChangedCallback(): void {
         if(this.shadowRoot) this.shadowRoot.getElementById('counter').innerHTML = this.count;
     }
 }

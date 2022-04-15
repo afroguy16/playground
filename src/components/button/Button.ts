@@ -1,18 +1,21 @@
+import { CSSStyleSheetExtended, ShadowRootExtended } from '../../types/browser-apis';
 import ButtonStyle from './Button.scss';
 
 class Button extends  HTMLElement {
+    shadowRoot: ShadowRootExtended;
+    
     constructor() {
         super();
     }
 
-    connectedCallback() {
+    connectedCallback(): void {
         this.setTemplate();
         this.setStyles();
     }
 
     setStyles() {
-        const sheet = new CSSStyleSheet();
-        sheet.replaceSync(ButtonStyle);
+        const sheet: CSSStyleSheetExtended = new CSSStyleSheet();
+        sheet.replace(ButtonStyle);
         this.shadowRoot.adoptedStyleSheets = [sheet];
     }
 
