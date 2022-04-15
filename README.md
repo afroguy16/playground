@@ -1,5 +1,5 @@
-# Playground
-A playground to test some browser APIs and Javascript concepts. This project is written in vanilla JS and supported by some libraries. [Webpack](https://webpack.js.org/) is used to bundle the code and [Babel](https://babeljs.io/) is used to transpile to an older JavaScript version. All dependencies used are in `package.json`, so you need to `npm i` before you serve the application. Details on how to start the application is [below](https://github.com/afroguy16/playground#start-up).
+# Web Component Playground
+A playground to test Web Components concept using TypeScript and some native browser APIs. This is a TypeScript project with no framework required; however, some libraries are required for setup as well as some helper functionality. A full list of dependencies can be found in the `package.json` file. Once this repo has been clone, you need to run `npm i` to install all dependencies. A guide on how to get it up and running can be found in the ["Start up" section](https://github.com/afroguy16/playground#start-up). [Webpack](https://webpack.js.org/) is used to bundle the code, support loading, and more, while loaders are used to load and transpile TS, SASS, and so on. Check out `webpack.config.js` for full details.
 
 ### Start up
 To start up the application:
