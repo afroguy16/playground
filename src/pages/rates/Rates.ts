@@ -6,18 +6,10 @@ import { Rates as RatesType } from "../../types/rates";
 
 const ERROR_TEMPLATE = '<p class="message-error">Something went wrong</p>' //Hard coded error message, not good for production application
 
-interface RatesState {
-    loading: boolean;
-    error: boolean;
-    rates: RatesType
-}
-
 class Rates extends HTMLElement {
-    state: RatesState = {
-        loading: true,
-        error: false,
-        rates: null
-    };
+    loading = true;
+    error = false;
+    rates: RatesType;
 
     shadowRoot: ShadowRootExtended;
 
@@ -46,9 +38,9 @@ class Rates extends HTMLElement {
                 <div class="rates-container">
                     <div class="rates" id="rates">
                         ${
-                            this.state.loading ? this.getLoadingCards()
-                            : this.state.error ? ERROR_TEMPLATE
-                            : this.getRateTemplate(this.state.rates)
+                            this.loading ? this.getLoadingCards()
+                            : this.error ? ERROR_TEMPLATE
+                            : this.getRateTemplate(this.rates)
                         }
                     </div>
                 </div>
@@ -60,7 +52,7 @@ class Rates extends HTMLElement {
 
     getRateTemplate(rates: RatesType): string {
         return rates
-        ? Object.entries(this.state.rates).map(([, value]) => {
+        ? Object.entries(this.rates).map(([, value]) => {
             return (`<app-rate name=${value.name} unit=${value.unit} value=${value.value} type=${value.type}></app-rate>`)
         }).join('')
         : '';
@@ -90,22 +82,22 @@ class Rates extends HTMLElement {
         try {
             RatesStore.updateRates(await RatesStore.fetchRates());
         } catch (err) {
-            this.state.error = true;
-            console.log({err}, this.state.error)
+            this.error = true;
+            console.log({err}, this.error)
             this.updateLocalRates();
         }
     }
 
     updateLocalRates(): void | string { //not the best move to have two different return types
-        this.state.rates = {
-            ...this.state.rates,
+        this.rates = {
+            ...this.rates,
             ...RatesStore.state
         }
-        if (this.state.error || this.state.rates) this.state.loading = false;
-        if (this.state.error) {
+        if (this.error || this.rates) this.loading = false;
+        if (this.error) {
             return ERROR_TEMPLATE;
         } else {
-            if(this.shadowRoot) this.shadowRoot.getElementById('rates').innerHTML = this.getRateTemplate(this.state.rates);
+            if(this.shadowRoot) this.shadowRoot.getElementById('rates').innerHTML = this.getRateTemplate(this.rates);
         }
     }
 }

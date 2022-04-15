@@ -2,9 +2,7 @@ import RatesService from "../services/Rates";
 import { Rates as RatesType } from "../types/rates";
 
 class Rates {
-    state: RatesType = {
-        rates: {}
-    }
+    state: RatesType;
 
     stateChange = new Event('ratesUpdated');
 
